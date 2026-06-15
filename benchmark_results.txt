@@ -1,0 +1,37 @@
+PRAGNA CUSTOM RUNTIME BENCHMARK
+--------------------------------------------------------------------------------
+
+Prompt: भारत की राजधानी
+Tokens Generated: 50
+Time: 30.81 sec
+Tokens/sec: 1.62
+
+Output:
+भारत की राजधानी, सांखी में केरल के पूर्व मुख्यमंत्री का नामांकन सर्वोच्च मंत्री सुभाषिनी ने चामल्ला नायक जांब्यउ खैंकियासी डीसीकअ कत् आ माडका
+--------------------------------------------------------------------------------
+
+Prompt: Explain machine learning
+Tokens Generated: 50
+Time: 35.40 sec
+Tokens/sec: 1.41
+
+Output:
+Explain machine learning
+
+In a recent review, it was found that in the use of a compelling applications often found that a number in
+
+
+A new theory, this page, in Categories, by the mecury
+
+--------------------------------------------------------------------------------
+
+Prompt: नमस्ते मेरा नाम
+Tokens Generated: 50
+Time: 40.56 sec
+Tokens/sec: 1.23
+
+Output:
+नमस्ते मेरा नाम और आदमी की। मेरा नाम नाही और उसका नाम नमस्सा भी बहुत उसांग से गुरू में पडर, जिस स्रु आरना।
+समुः इम सौपस
+--------------------------------------------------------------------------------
+

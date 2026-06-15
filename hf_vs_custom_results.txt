@@ -1,0 +1,86 @@
+HF vs CUSTOM PRAGNA RUNTIME
+--------------------------------------------------------------------------------
+
+PROMPT:
+भारत की राजधानी
+
+HF OUTPUT:
+भारत की राजधानी कोलकाता में एक महिला ने एक युवक पर गाली-गलौज करते हुए उसके साथ मारपीट की। इस घटना के बाद महिला ने पुलिस को शिकायत दर्ज कराई है।
+ भारतीय जनता पार्टी के नेता और पूर्व मंत्री सुभाष चंद्र 
+
+CUSTOM OUTPUT:
+भारत की राजधानी, दिल्ली में एक अजीवन अस्पताल में एक महिला ने एक अजीवन बचा लिया गया।
+दिल्ली में एक अजी।
+एक अजीएडौमडौम अहायड अग अग की एक अ क
+
+--------------------------------------------------------------------------------
+
+PROMPT:
+नमस्ते मेरा नाम
+
+HF OUTPUT:
+नमस्ते मेरा नाम ।
+( १ ) मेरे नाम का मतलब मैं हूँ ।
+( २ ) मेरे नाम का मतलब मैं हूँ ।
+( ३ ) मेरे नाम का मतलब मैं हूँ ।
+
+CUSTOM OUTPUT:
+नमस्ते मेरा नाम तुम्हारा नाम मेरे नाम तुम्हारा नाम मेरे नाम तुम्हे तुम् तुम् तुम् तुम् तुम् तुम् तु तु तु य।
+
+
+--------------------------------------------------------------------------------
+
+PROMPT:
+Explain machine learning
+
+HF OUTPUT:
+Explain machine learning to a non-expert.
+Explain machine learning to a non-expert.
+Explain machine learning to a non-expert.
+Explain machine learning to a non-expert.
+Explain machine learning to a
+
+CUSTOM OUTPUT:
+Explain machine learning to a non-expert
+
+
+The following is a machine learning problem:
+
+
+
+The following is a
+
+The followers
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+PROMPT:
+The capital of India is
+
+HF OUTPUT:
+The capital of India is New Delhi. The capital of India is New Delhi.
+The capital of India is New Delhi.
+The capital of India is New Delhi.
+The capital of India is New Delhi.
+The capital of India is New
+
+CUSTOM OUTPUT:
+The capital of India is Delhi. The capital of India is Delhi.
+The capital of India is Delhi.
+The capital of India is Delhi.
+The capital city is the capital city is the capital of India is the capital is the capital is the
+
+--------------------------------------------------------------------------------
+
