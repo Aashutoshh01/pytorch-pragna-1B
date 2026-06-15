@@ -1,0 +1,103 @@
+PRAGNA SAMPLING COMPARISON
+--------------------------------------------------------------------------------
+
+PROMPT:
+The capital of India is
+
+GREEDY OUTPUT:
+The capital of India is Delhi. The capital of India is Delhi.
+The capital of India is Delhi.
+The capital of India is Delhi.
+The capital city is the capital city is the capital of India is the capital is the capital is the
+
+TOP-K OUTPUT:
+The capital of India is New Delhi. It is the capital of the Indian state of Delhi is the capital of India. Agnoseta. It has the official flag of India. The Capital.
+Home and the Indian capital and India Modi. India'
+
+TOP-P OUTPUT:
+The capital of India is Delhi and the capital of Delhi is the national capital city is the capital of India.
+#Delhi is the capital city of Delhi state's capital is the capital of the Capital
+Polith… has ana was the
+
+--------------------------------------------------------------------------------
+
+PROMPT:
+भारत की राजधानी
+
+GREEDY OUTPUT:
+भारत की राजधानी, दिल्ली में एक अजीवन अस्पताल में एक महिला ने एक अजीवन बचा लिया गया।
+दिल्ली में एक अजी।
+एक अजीएडौमडौम अहायड अग अग की एक अ क
+
+TOP-K OUTPUT:
+भारत की राजधानी कोलकाता में गुरुवार को कोविड-19 के मरीजों के बीच एक नया खतरनाशकारी वायरस का कहना विमानिबोर्ड गवाड़ा बोगामोक (इर्आई को सीनाकमकताकआ क
+
+TOP-P OUTPUT:
+भारत की राजधानी कोलकाता में केरला के पूर्व विधायक नेगी ने अपने साथी कोटा से केरवाला कॉमियन बैक्वबूबी ने वेंसी प्या कल्कि कि कांटॉकौका काक
+
+--------------------------------------------------------------------------------
+
+PROMPT:
+Explain machine learning
+
+GREEDY OUTPUT:
+Explain machine learning to a non-expert
+
+
+The following is a machine learning problem:
+
+
+
+The following is a
+
+The followers
+
+
+
+
+
+
+
+
+
+
+
+
+
+TOP-K OUTPUT:
+Explain machine learning with a non-calibratification:
+There are two types of generation of this book:
+Forward operational
+H-theory (and non-matrials on the
+intrulation.
+
+TOP-P OUTPUT:
+Explain machine learning. For example, what is machine learning?
+What is machine learning?
+Explain the difference between communications
+In machine learning
+We have been up with the device and the class
+Mi
+https:
+and how
+
+--------------------------------------------------------------------------------
+
+PROMPT:
+नमस्ते मेरा नाम
+
+GREEDY OUTPUT:
+नमस्ते मेरा नाम तुम्हारा नाम मेरे नाम तुम्हारा नाम मेरे नाम तुम्हे तुम् तुम् तुम् तुम् तुम् तुम् तु तु तु य।
+
+
+TOP-K OUTPUT:
+नमस्ते मेरा नाम, 1998 में जारी हुए एक कनाडाई फिल्म है, जो एक कनाडा का दूसरा प्रदर्शन और किम् वर्कप्यटचम (201 में 199 अर्ना कना। फ सोअम
+
+TOP-P OUTPUT:
+नमस्ते मेरा नाम
+( ४ ) शिष्टावली
+( ६) निन्मत्र से मिलता ।
+सम्बल्य-खरि-अन्ैसन्ग-न लोकामि'नम० निमि
+
+--------------------------------------------------------------------------------
+

@@ -270,7 +270,7 @@ class Transformer(nn.Module):
         return mfu
 
     @torch.inference_mode()
-    def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+    def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None, top_p=None):
         for _ in range(max_new_tokens):
             idx_cond = idx if idx.size(1) <= self.params.max_seq_len else idx[:, -self.params.max_seq_len:]
             logits = self(idx_cond)
@@ -283,7 +283,18 @@ class Transformer(nn.Module):
                     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
                     logits[logits < v[:, [-1]]] = -float('Inf')
                 probs = F.softmax(logits, dim=-1)
-                idx_next = torch.multinomial(probs, num_samples=1)
+                if top_p is not None:
+                    sorted_probs, sorted_indices = torch.sort(probs,descending=True)
+                    cumulative_probs = torch.cumsum(sorted_probs,dim=-1)
+                    mask = cumulative_probs > top_p
+                    mask[..., 1:] = mask[..., :-1].clone()
+                    mask[..., 0] = False
+                    sorted_probs[mask] = 0
+                    sorted_probs = (sorted_probs /sorted_probs.sum(dim=-1,keepdim=True))
+                    idx_next = torch.multinomial(sorted_probs,num_samples=1)
+                    idx_next = torch.gather(sorted_indices,-1,idx_next)
+                else:
+                    idx_next = torch.multinomial(probs, num_samples=1)
             idx = torch.cat((idx, idx_next), dim=1)
 
         return idx

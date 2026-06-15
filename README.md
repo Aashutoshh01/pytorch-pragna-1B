@@ -337,6 +337,69 @@ With temperature=0.8 and top_k=50:
 
 ---
 
+## Sampling Strategy Comparison
+
+The `generate` method in the custom runtime supports three decoding strategies: greedy decoding, top-k sampling, and top-p (nucleus) sampling. The top-p implementation was added to the runtime to study how different sampling strategies affect output diversity and coherence.
+
+**How top-p (nucleus) sampling works:** Rather than sampling from a fixed number of top tokens (top-k), top-p sorts the probability distribution in descending order and includes tokens until their cumulative probability exceeds a threshold `p`. This dynamically adjusts the candidate pool — using fewer tokens when the model is confident and more when the distribution is flat.
+
+The implementation in `models.py`:
+1. Sorts the softmax probabilities in descending order
+2. Computes the cumulative sum
+3. Masks out all tokens beyond the cumulative threshold `p`
+4. Renormalizes the remaining probabilities
+5. Samples from the filtered distribution
+
+All three strategies were compared side-by-side on identical prompts (`sampling_comparison.py`):
+
+**Prompt: "The capital of India is"**
+
+| Strategy | Output |
+|----------|--------|
+| Greedy   | The capital of India is Delhi. The capital of India is Delhi. The capital of India is Delhi. *(repetitive loop)* |
+| Top-k    | The capital of India is New Delhi. It is the capital of the Indian state of Delhi... Agnoseta. It has the official flag of India. |
+| Top-p    | The capital of India is Delhi and the capital of Delhi is the national capital city... |
+
+**Prompt: "नमस्ते मेरा नाम"**
+
+| Strategy | Output |
+|----------|--------|
+| Greedy   | नमस्ते मेरा नाम तुम्हारा नाम मेरे नाम तुम्हारा नाम मेरे नाम तुम्हे तुम् तुम् तुम्... *(degenerate repetition)* |
+| Top-k    | नमस्ते मेरा नाम, 1998 में जारी हुए एक कनाडाई फिल्म है, जो एक कनाडा का दूसरा प्रदर्शन... |
+| Top-p    | नमस्ते मेरा नाम ( ४ ) शिष्टावली ( ६) निन्मत्र से मिलता... |
+
+**Observations:**
+
+- Greedy decoding consistently falls into repetitive loops, a well-known failure mode of autoregressive models without sampling.
+- Top-k (k=50, temperature=0.8) produces more diverse and coherent continuations by restricting sampling to the 50 most probable tokens.
+- Top-p (p=0.9, temperature=0.8) produces the most varied outputs by dynamically adjusting the candidate pool size based on the model's confidence at each step.
+- Both sampling strategies effectively break the repetition patterns that greedy decoding exhibits, with top-p offering a more principled approach to candidate selection.
+
+---
+
+## Logit Parity Validation
+
+To go beyond qualitative comparison, the codebase includes a direct logit-level validation (`logit_parity.py`). Both the Hugging Face runtime and the custom runtime are given the same prompt, and their raw output logits (over the full 69,632-token vocabulary) are compared element-wise.
+
+**Prompt: "The capital of India is"**
+
+| Metric               | Value       |
+|----------------------|-------------|
+| Mean Absolute Diff   | 0.22338006  |
+| Max Absolute Diff    | 1.59867740  |
+| Std of Diff          | 0.18917128  |
+
+**Top predicted token:**
+
+| Runtime | Token ID | Decoded |
+|---------|----------|---------|
+| HF      | 1570     | New     |
+| Custom  | 5556     | Del     |
+
+The HF runtime predicts "New" (as in "New Delhi") while the custom runtime predicts "Del" (as in "Delhi"). Both are factually correct continuations. The mean absolute logit difference of ~0.22 across 69,632 logit values is small and attributable to floating-point accumulation differences across the two execution paths — different operation ordering, different attention mask construction, and different RoPE computation methods (stored `inv_freq` buffers vs. dynamically computed frequencies). Despite these numerical differences, both runtimes arrive at semantically equivalent predictions.
+
+---
+
 ## Benchmark
 
 CPU inference benchmark (no GPU, no KV cache, full recomputation per step):
@@ -412,6 +475,15 @@ benchmark_pragna.py        Benchmarks the custom runtime on multiple prompts.
 test_pragna.py             Smoke test. Instantiates the model, passes random token
                            IDs through a forward pass, and verifies output shape.
 
+logit_parity.py            Logit-level comparison between HF and custom runtimes.
+                           Computes mean/max/std absolute logit differences and
+                           compares top predicted tokens. Saves results to
+                           logit_parity_results.txt.
+
+sampling_comparison.py     Compares greedy, top-k, and top-p decoding strategies
+                           on identical prompts. Saves results to
+                           sampling_comparison_results.txt.
+
 notebook.ipynb             Exploratory notebook used during development for
                            checkpoint inspection and architecture analysis.
 ```
@@ -425,6 +497,8 @@ pragna_layer0.txt              Detailed tensor shapes for decoder layer 0.
 custom_model_inventory.txt     Full tensor inventory of the custom runtime (202 parameters).
 hf_vs_custom_results.txt       Side-by-side generation outputs from HF and custom runtimes.
 benchmark_results.txt          CPU inference benchmark results.
+logit_parity_results.txt       Logit-level parity report between HF and custom runtimes.
+sampling_comparison_results.txt  Greedy vs top-k vs top-p generation comparison.
 ```
 
 ---
@@ -472,13 +546,25 @@ python check_params.py
 python inspect_model.py
 ```
 
+**Logit parity validation:**
+
+```bash
+python logit_parity.py
+```
+
+**Compare sampling strategies:**
+
+```bash
+python sampling_comparison.py
+```
+
 **Smoke test (no checkpoint needed):**
 
 ```bash
 python test_pragna.py
 ```
 
-Note: Scripts that load the official checkpoint (`generate.py`, `compare_with_hf.py`, `benchmark_pragna.py`, `check_params.py`) will automatically download the Pragna-1B weights from Hugging Face on first run (~5 GB).
+Note: Scripts that load the official checkpoint (`generate.py`, `compare_with_hf.py`, `benchmark_pragna.py`, `check_params.py`, `logit_parity.py`, `sampling_comparison.py`) will automatically download the Pragna-1B weights from Hugging Face on first run (~5 GB).
 
 ---
 

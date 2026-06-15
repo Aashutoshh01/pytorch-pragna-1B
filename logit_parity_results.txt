@@ -1,0 +1,15 @@
+LOGIT PARITY REPORT
+------------------------------------------------------------
+
+Prompt:
+The capital of India is
+
+Max Difference  : 1.59867740
+Mean Difference : 0.22338006
+Std Difference  : 0.18917128
+
+HF Top Token:
+1570 -> New
+
+Custom Top Token:
+5556 -> Del
